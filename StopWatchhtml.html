@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design  a Stopwatch</title>
+    <style>
+        .all{
+            
+           font-family: sans-serif;  
+           border: 5px;
+          
+            display: block;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+             top: 100px;
+             left: 100px;
+        }
+        .time{
+           
+            position:relative;
+            top: 50px;
+           left: 200px;
+           color: black;
+            font-size: large;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .controllers{
+            display: flex;
+            position: relative;
+            top: 50px;
+           left: 150px;
+        }
+        #Start{
+            position: relative;
+            margin-right: 40px;
+            background-color: aliceblue;
+            color:green;
+            border: 10px;
+            border-radius: 10px;
+            font-size: large;
+            font-weight: 600;
+        }
+        #reset{
+            position: relative;
+            margin-right: 40px;
+            background-color: aliceblue;
+            color:black;
+            border: 10px;
+            border-radius: 10px;
+            font-size: large;
+            font-weight: 600;
+        }
+        #Stop{
+            position: relative;
+            margin-right: 40px;
+            background-color: aliceblue;
+            color:red;
+            border: 10px;
+            border-radius: 10px;
+            font-size: large;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <section class="all">
+  <div  id="zeros" class="time">00:00:00:00</div> 
+  <div class="controllers">
+    <button id="Start" onclick="watchTime()">Start</button>
+    <button id="reset" onclick="getReset()">Reset</button>
+    <button id="Stop" onclick="getStop()">Stop</button>
+  </div> 
+</section>
+<script>
+
+//let[millisec,secs,minuts,hours]=[0,0,0,0];
+let Now=new Date();
+let hours =Now.getHours();
+let minuts =Now.getMinutes();
+let secs =Now.getSeconds();
+let millisec =(Now.getMilliseconds())%100;
+let zero=document.getElementById("zeros");
+let timer=null;
+
+    function Stopwatch() {
+      millisec++;
+     
+        if (millisec > 100) {
+            millisec = 0;
+           secs++;
+            if (secs == 60) {
+                secs = 0;
+                minuts++;
+                if (minuts == 60) {
+                    minuts = 0;
+                    hours++;
+                    if (hours > 12) {
+                        hours = 1;
+                    }
+                }
+            }
+        }
+        let hr = hours < 10 ? "0" + hours : hours;
+        let min = minuts < 10 ? "0" + minuts : minuts;
+        let se = secs < 10 ? "0" + secs : secs;
+        let Msec = millisec < 10 ? "0" + millisec : millisec;
+        zero.innerHTML = hr + ":" + min + ":" + se + ":" + Msec;
+    }
+    function watchTime() {
+        if (timer !== null) {
+            clearInterval(timer);
+        }
+
+        timer = setInterval(Stopwatch, 0);
+    }
+    function getReset() {
+        clearInterval(timer);
+        let z = "00:00:00:00";
+        let reset = document.getElementById("zeros");
+        reset.innerHTML = z;
+    }
+    function getStop() {
+        clearInterval(timer);
+    }
+
+
+
+
+
+
+
+/*
+
+
+function Stopwatch(){
+    millisec++;
+    if(millisec==100){
+        millisec=0;
+        secs++;
+        if(secs==60){
+            secs=0;
+            minuts++;
+            if(minuts==60){
+                minuts=0;
+                hours++;
+                if(hours>12){
+                    hours=1;
+                }
+            }
+        }
+    } 
+      let hr=hours<10?"0"+hours:hours;
+      let min=minuts<10?"0"+minuts:minuts;
+      let se=secs<10?"0"+secs:secs;
+      let Msec=millisec<10?"0"+millisec:millisec;
+    zero.innerHTML=hr+":"+min+":"+se+":"+Msec;
+}
+function watchTime(){
+    if(timer!==null){
+       clearInterval(timer);
+    }
+   
+     timer = setInterval(Stopwatch, 1);
+
+}
+function getReset(){
+    clearInterval(timer);
+ let z="00:00:00:00";
+   let reset = document.getElementById("zeros");
+   reset.innerHTML= z;
+}
+
+function getStop(){
+    clearInterval(timer);
+}
+
+
+
+
+
+
+
+    /*
+    let startbt=document.getElementById("Start");
+    
+    function getstart(){
+        let startTime=new Date();
+        let gethrs=startTime.getHours();
+        let getMinss=startTime.getMinutes();
+        let getsecs=startTime.getSeconds();
+        let Getmise=startTime.getMilliseconds();
+       /* setInterval( begin(gethrs, getmins, getsecs, getmisecs),10);
+   function begin(gethrs,getmins,getsecs,getmisecs){
+    this.hrs=gethrs;
+    this.min=getmins;
+    this.sec=getsecs;
+    this.misec=getmisecs;
+    *//*
+   let reciever=gethrs + ":" + getminss + ":" + getsecs + ":" + Getmise;
+    document.getElementById("zeros").textContent = reciever;
+    
+   }
+
+*/
+    
+</script>
+</body>
+</html>
